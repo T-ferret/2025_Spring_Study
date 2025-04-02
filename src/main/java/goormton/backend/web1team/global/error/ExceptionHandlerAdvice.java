@@ -117,4 +117,14 @@ public class ExceptionHandlerAdvice {
         ApiResponse apiResponse = ApiResponse.builder().check(false).information(response).build();
         return new ResponseEntity<>(apiResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    protected ResponseEntity<?> handleIllegalArgumentException(IllegalArgumentException e) {
+        ErrorResponse response = ErrorResponse.builder()
+                .httpStatus(HttpStatus.BAD_REQUEST)
+                .message(e.getMessage())
+                .build();
+        ApiResponse apiResponse = ApiResponse.builder().check(false).information(response).build();
+        return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
+    }
 }
