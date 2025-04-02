@@ -12,13 +12,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
-@Builder
 public class ErrorResponse {
 
     private final boolean check = false;
     private final LocalDateTime timestamp = LocalDateTime.now();
     private final HttpStatus httpStatus;
-    private final int code;
+    private final String code;
     private final String message;
 
     @JsonProperty("class")
@@ -26,23 +25,13 @@ public class ErrorResponse {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final List<ValidationError> errors;
 
-    public static ErrorResponse of(HttpStatus httpStatus, int code, String message, String clazz){
-        return ErrorResponse.builder()
-                .httpStatus(httpStatus)
-                .code(code)
-                .message(message)
-                .clazz(clazz)
-                .build();
-    }
-
-    public static ErrorResponse of(HttpStatus httpStatus, int code, String message, String clazz, BindingResult bindingResult){
-        return ErrorResponse.builder()
-                .httpStatus(httpStatus)
-                .code(code)
-                .message(message)
-                .clazz(clazz)
-                .errors(ValidationError.of(bindingResult))
-                .build();
+    @Builder
+    public ErrorResponse (HttpStatus httpStatus, String code, String message, String clazz, BindingResult bindingResult){
+        this.httpStatus = httpStatus;
+        this.code = code;
+        this.message = message;
+        this.clazz = clazz;
+        this.errors = ValidationError.of(bindingResult);
     }
 
     @Getter
