@@ -7,12 +7,10 @@ import goormton.backend.web1team.domain.note.dto.NoteResponse;
 import goormton.backend.web1team.global.payload.ResponseCustom;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/notes")
@@ -22,6 +20,7 @@ public class NoteController {
     private final NoteService noteService;
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseCustom<?> createNote(@Valid @RequestBody CreateNoteRequest request) {
         Note note = noteService.createNote(request);
         NoteResponse response = NoteResponse.fromEntity(note);
