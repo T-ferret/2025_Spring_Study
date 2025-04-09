@@ -1,7 +1,7 @@
 package goormton.backend.web1team.domain.note.presentation;
 
-import goormton.backend.web1team.domain.note.dto.CreateNoteRequest;
-import goormton.backend.web1team.domain.note.dto.NoteResponse;
+import goormton.backend.web1team.domain.note.dto.request.CreateNoteRequest;
+import goormton.backend.web1team.domain.note.dto.response.NoteResponse;
 import goormton.backend.web1team.domain.note.service.NoteService;
 import goormton.backend.web1team.global.payload.ResponseCustom;
 import io.swagger.v3.oas.annotations.Operation;

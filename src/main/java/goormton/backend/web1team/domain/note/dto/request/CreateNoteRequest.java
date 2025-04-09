@@ -1,9 +1,8 @@
-package goormton.backend.web1team.domain.note.dto;
+package goormton.backend.web1team.domain.note.dto.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
-import lombok.Builder;
 
 @Schema(description = "노틑 객체 생성용 requestDTO입니다.")
 public record CreateNoteRequest(

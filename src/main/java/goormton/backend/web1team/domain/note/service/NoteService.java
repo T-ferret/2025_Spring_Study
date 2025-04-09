@@ -2,8 +2,8 @@ package goormton.backend.web1team.domain.note.service;
 
 import goormton.backend.web1team.domain.note.domain.Note;
 import goormton.backend.web1team.domain.note.domain.repository.NoteRepository;
-import goormton.backend.web1team.domain.note.dto.CreateNoteRequest;
-import goormton.backend.web1team.domain.note.dto.NoteResponse;
+import goormton.backend.web1team.domain.note.dto.request.CreateNoteRequest;
+import goormton.backend.web1team.domain.note.dto.response.NoteResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

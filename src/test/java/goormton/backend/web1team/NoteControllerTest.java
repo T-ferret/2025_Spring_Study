@@ -1,10 +1,10 @@
 package goormton.backend.web1team;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import goormton.backend.web1team.domain.note.dto.NoteResponse;
+import goormton.backend.web1team.domain.note.dto.response.NoteResponse;
 import goormton.backend.web1team.domain.note.service.NoteService;
 import goormton.backend.web1team.domain.note.domain.Note;
-import goormton.backend.web1team.domain.note.dto.CreateNoteRequest;
+import goormton.backend.web1team.domain.note.dto.request.CreateNoteRequest;
 import goormton.backend.web1team.domain.note.presentation.NoteController;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
