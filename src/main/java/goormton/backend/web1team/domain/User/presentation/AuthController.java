@@ -6,6 +6,8 @@ import goormton.backend.web1team.domain.User.dto.response.JwtResponse;
 import goormton.backend.web1team.domain.User.service.UserService;
 import goormton.backend.web1team.global.payload.ResponseCustom;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -26,7 +28,9 @@ public class AuthController {
 
     @Operation(summary = "회원가입 후 로그인", description = "회원가입과 로그인을 수행합니다.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "성공"),
+            @ApiResponse(responseCode = "200", description = "성공", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = JwtResponse.class))
+            }),
             @ApiResponse(responseCode = "400", description = "실패")
     })
     @PostMapping("/signup")
@@ -37,10 +41,12 @@ public class AuthController {
 
     @Operation(summary = "유저 로그인", description = "로그인을 수행합니다.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "성공"),
+            @ApiResponse(responseCode = "200", description = "성공", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = JwtResponse.class))
+            }),
             @ApiResponse(responseCode = "400", description = "실패")
     })
-    @PostMapping("/signup")
+    @PostMapping("/login")
     public ResponseCustom<?> loginUser(@Valid @RequestBody LoginRequest request) {
         JwtResponse response = userService.loginAndGetToken(request);
         return ResponseCustom.OK(response);

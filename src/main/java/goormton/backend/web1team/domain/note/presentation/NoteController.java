@@ -1,11 +1,13 @@
 package goormton.backend.web1team.domain.note.presentation;
 
-import goormton.backend.web1team.domain.note.service.NoteService;
-import goormton.backend.web1team.domain.note.domain.Note;
 import goormton.backend.web1team.domain.note.dto.CreateNoteRequest;
 import goormton.backend.web1team.domain.note.dto.NoteResponse;
+import goormton.backend.web1team.domain.note.service.NoteService;
 import goormton.backend.web1team.global.payload.ResponseCustom;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -39,7 +41,11 @@ public class NoteController {
 
     @Operation(summary = "노트 리스트 조회", description = "모든 노트를 조회합니다.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "성공"),
+            @ApiResponse(responseCode = "200", description = "성공", content = {
+                    @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = NoteResponse.class))
+                    )
+            }),
             @ApiResponse(responseCode = "400", description = "실패")
     })
     @GetMapping
@@ -51,7 +57,9 @@ public class NoteController {
 
     @Operation(summary = "노트 정보 조회", description = "어떤 노트 객체의 정보 조회합니다.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "성공"),
+            @ApiResponse(responseCode = "200", description = "성공", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = NoteResponse.class))
+            }),
             @ApiResponse(responseCode = "400", description = "실패")
     })
     @GetMapping("/{id}")
@@ -63,7 +71,9 @@ public class NoteController {
 
     @Operation(summary = "노트 업데이트", description = "어떤 노트 객체 정보를 수정합니다.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "성공"),
+            @ApiResponse(responseCode = "200", description = "성공", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = NoteResponse.class))
+            }),
             @ApiResponse(responseCode = "400", description = "실패")
     })
     @PutMapping("/{id}")

@@ -49,8 +49,11 @@ public class ErrorResponse {
         }
 
         public static List<ValidationError> of(final BindingResult bindingResult){
+            if (bindingResult == null) {
+                return List.of(); // 또는 Collections.emptyList()
+            }
             return bindingResult.getFieldErrors().stream()
-                    .map(ValidationError :: new)
+                    .map(ValidationError::new)
                     .toList();
         }
     }
