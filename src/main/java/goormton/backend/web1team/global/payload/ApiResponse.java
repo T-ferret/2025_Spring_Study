@@ -7,6 +7,7 @@ import lombok.ToString;
 
 @ToString
 @Data
+@Schema(description = "API 요청 중 에러 발생시 리턴되는 response")
 public class ApiResponse {
 
     @Schema(type = "boolean", example = "true", description = "올바르게 로직을 처리했으면 True, 아니면 False 반환.")

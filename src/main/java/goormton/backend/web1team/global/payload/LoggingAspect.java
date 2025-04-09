@@ -15,7 +15,8 @@ import java.util.Arrays;
 public class LoggingAspect {
 
 //    패키지 내 모든 메서드에 적용될 Pointcut을 정의
-    @Pointcut("within(goormton.backend.web1team..*)")
+//    config에 대한 내용은 loggin X
+    @Pointcut("within(goormton.backend.web1team..*) && !within(goormton.backend.web1team.global.config..*)")
     public void applicationPackagePointcut() {
     }
 

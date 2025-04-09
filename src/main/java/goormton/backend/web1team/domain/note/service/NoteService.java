@@ -1,8 +1,9 @@
-package goormton.backend.web1team.domain.note.application;
+package goormton.backend.web1team.domain.note.service;
 
 import goormton.backend.web1team.domain.note.domain.Note;
 import goormton.backend.web1team.domain.note.domain.repository.NoteRepository;
 import goormton.backend.web1team.domain.note.dto.CreateNoteRequest;
+import goormton.backend.web1team.domain.note.dto.NoteResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,24 +17,24 @@ public class NoteService {
     private final NoteRepository noteRepository;
 
     @Transactional
-    public Note createNote(CreateNoteRequest request) {
+    public NoteResponse createNote(CreateNoteRequest request) {
         Note note = Note.builder()
                 .title(request.title())
                 .content(request.content())
                 .build();
-        return noteRepository.save(note);
+        return NoteResponse.fromEntity(noteRepository.save(note));
     }
 
-    public List<Note> getAllNotes() {
-        return noteRepository.findAll();
+    public List<NoteResponse> getAllNotes() {
+        return noteRepository.findAll().stream().map(NoteResponse::fromEntity).toList();
     }
 
-    public Note getNoteById(Integer id) {
-        return noteRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("메모를 찾을 수 없습니다. id=" + id));
+    public NoteResponse getNoteById(Integer id) {
+        return NoteResponse.fromEntity(noteRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("메모를 찾을 수 없습니다. id=" + id)));
     }
 
     @Transactional
-    public Note updateNote(Integer id, CreateNoteRequest request) {
+    public NoteResponse updateNote(Integer id, CreateNoteRequest request) {
         Note note = noteRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("메모를 찾을 수 없습니다. id=" + id));
 
         Note updateNote = Note.builder()
@@ -41,7 +42,7 @@ public class NoteService {
                 .title(request.title())
                 .content(request.content())
                 .build();
-        return noteRepository.save(updateNote);
+        return NoteResponse.fromEntity(noteRepository.save(updateNote));
     }
 
     @Transactional

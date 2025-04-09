@@ -1,7 +1,8 @@
 package goormton.backend.web1team;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import goormton.backend.web1team.domain.note.application.NoteService;
+import goormton.backend.web1team.domain.note.dto.NoteResponse;
+import goormton.backend.web1team.domain.note.service.NoteService;
 import goormton.backend.web1team.domain.note.domain.Note;
 import goormton.backend.web1team.domain.note.dto.CreateNoteRequest;
 import goormton.backend.web1team.domain.note.presentation.NoteController;
@@ -42,10 +43,7 @@ public class NoteControllerTest {
     @Test
     public void testCreateNote() throws Exception {
         // given
-        CreateNoteRequest request = CreateNoteRequest.builder()
-                .title("테스트 제목")
-                .content("테스트 내용")
-                .build();
+        CreateNoteRequest request = new CreateNoteRequest("테스트 제목", "테스트 내용");
 
         Note note = Note.builder()
                 .id(1)
@@ -54,7 +52,7 @@ public class NoteControllerTest {
                 .build();
 
         // 서비스의 createNote 메서드 호출 시 미리 정의한 Note 객체 반환
-        Mockito.when(noteService.createNote(any(CreateNoteRequest.class))).thenReturn(note);
+        Mockito.when(noteService.createNote(any(CreateNoteRequest.class))).thenReturn(NoteResponse.fromEntity(note));
 
         // when & then : ResponseCustom.CREATED() 반환, HTTP 201, data 필드에 NoteResponse 내용 포함
         mockMvc.perform(post("/api/notes")
@@ -77,7 +75,7 @@ public class NoteControllerTest {
                 .build();
 
         List<Note> notes = List.of(note);
-        Mockito.when(noteService.getAllNotes()).thenReturn(notes);
+        Mockito.when(noteService.getAllNotes()).thenReturn(notes.stream().map(NoteResponse::fromEntity).toList());
 
         // when & then : ResponseCustom.OK() 반환, HTTP 200, data 필드가 List 형태임
         mockMvc.perform(get("/api/notes")
@@ -97,7 +95,7 @@ public class NoteControllerTest {
                 .content("테스트 내용")
                 .build();
 
-        Mockito.when(noteService.getNoteById(eq(1))).thenReturn(note);
+        Mockito.when(noteService.getNoteById(eq(1))).thenReturn(NoteResponse.fromEntity(note));
 
         // when & then : 특정 ID의 메모 조회 테스트
         mockMvc.perform(get("/api/notes/{id}", 1)
@@ -111,10 +109,7 @@ public class NoteControllerTest {
 
     @Test
     public void testUpdateNote() throws Exception {
-        CreateNoteRequest request = CreateNoteRequest.builder()
-                .title("업데이트")
-                .content("업데이트 내용")
-                .build();
+        CreateNoteRequest request = new CreateNoteRequest("업데이트", "업데이트 내용");
 
         Note note = Note.builder()
                 .id(1)
@@ -122,7 +117,7 @@ public class NoteControllerTest {
                 .content(request.content())
                 .build();
 
-        Mockito.when(noteService.updateNote(eq(1), any(CreateNoteRequest.class))).thenReturn(note);
+        Mockito.when(noteService.updateNote(eq(1), any(CreateNoteRequest.class))).thenReturn(NoteResponse.fromEntity(note));
 
         // when & then : ResponseCustom.OK() 반환, HTTP 200, 업데이트된 data 검증
         mockMvc.perform(put("/api/notes/{id}", 1)

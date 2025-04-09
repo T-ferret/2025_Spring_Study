@@ -1,5 +1,6 @@
 package goormton.backend.web1team.global.payload;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.annotation.Nullable;
 import lombok.*;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 @NoArgsConstructor
+@Schema(description = "API 요청 성공시 리턴하는 response")
 public class ResponseCustom<T>{
 
     private T data;
