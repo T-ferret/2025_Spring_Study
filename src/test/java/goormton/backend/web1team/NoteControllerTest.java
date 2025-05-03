@@ -6,6 +6,7 @@ import goormton.backend.web1team.domain.note.service.NoteService;
 import goormton.backend.web1team.domain.note.domain.Note;
 import goormton.backend.web1team.domain.note.dto.request.CreateNoteRequest;
 import goormton.backend.web1team.domain.note.presentation.NoteController;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +68,7 @@ public class NoteControllerTest {
     }
 
     @Test
+    @DisplayName("GET /api/notes: 모든 메모 조회 시 HTTP 200 응답 반환")
     public void testGetAllNotes() throws Exception {
         Note note = Note.builder()
                 .id(1)
@@ -88,6 +90,7 @@ public class NoteControllerTest {
     }
 
     @Test
+    @DisplayName("GET /api/notes/{id}: 특정 ID의 메모 조회 시 HTTP 200 응답 반환")
     public void testGetNoteById() throws Exception {
         Note note = Note.builder()
                 .id(1)
@@ -108,6 +111,7 @@ public class NoteControllerTest {
     }
 
     @Test
+    @DisplayName("PUT /api/notes/{id}: 메모 업데이트 시 HTTP 200 응답 반환")
     public void testUpdateNote() throws Exception {
         CreateNoteRequest request = new CreateNoteRequest("업데이트", "업데이트 내용");
 
@@ -132,6 +136,7 @@ public class NoteControllerTest {
     }
 
     @Test
+    @DisplayName("DELETE /api/notes/{id}: 메모 삭제 시 HTTP 200 응답 반환")
     public void testDeleteNote() throws Exception {
         // deleteNote 메서드는 void 반환. 별도의 data 없이 ResponseCustom.OK() 사용
         // when & then

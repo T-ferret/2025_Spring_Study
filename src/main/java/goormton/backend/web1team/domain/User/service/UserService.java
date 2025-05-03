@@ -7,7 +7,7 @@ import goormton.backend.web1team.domain.User.dto.request.LoginRequest;
 import goormton.backend.web1team.domain.User.dto.request.SignupRequest;
 import goormton.backend.web1team.domain.User.dto.response.JwtResponse;
 import goormton.backend.web1team.global.config.security.jwt.JwtUtil;
-import goormton.backend.web1team.global.error.DefaultExeption;
+import goormton.backend.web1team.global.error.DefaultException;
 import goormton.backend.web1team.global.payload.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -62,7 +62,7 @@ public class UserService {
     }
 
     public User getUser(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new DefaultExeption(ErrorCode.INVALID_PARAMETER));
+        return userRepository.findById(id).orElseThrow(() -> new DefaultException(ErrorCode.INVALID_PARAMETER));
     }
 
     public void deleteUser(Long id) {

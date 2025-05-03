@@ -65,7 +65,7 @@ public class ExceptionHandlerAdvice {
     }
 
     @ExceptionHandler(DefaultException.class)
-    protected ResponseEntity<?> handleDefaultExeption(DefaultException e) {
+    protected ResponseEntity<?> handleDefaultException(DefaultException e) {
         ErrorCode errorCode = e.getErrorCode();
         ErrorResponse response = ErrorResponse.builder()
                 .httpStatus(errorCode.getHttpStatus())
