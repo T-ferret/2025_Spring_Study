@@ -16,7 +16,6 @@ import java.util.List;
 @Schema(description = "ApiResponse에서, Error에 대한 정보를 직접적으로 가지고 있는 response")
 public class ErrorResponse {
 
-    private final boolean check = false;
     private final LocalDateTime timestamp = LocalDateTime.now();
     private final HttpStatus httpStatus;
     private final String code;
